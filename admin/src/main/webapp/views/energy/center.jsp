@@ -14,12 +14,15 @@
             justify-content: space-between;
             width: 100%;
             height: 550px;
+            background : linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 12px;
+            margin-bottom: 20px;
         }
 
         /* 오른쪽 정보 패널 */
         .info-panel {
             overflow-y: auto; /* 내부 콘텐츠가 panel 크기를 초과할 경우 스크롤 생성 */
-            margin-bottom: 25px;
+            margin: 25px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border: none;
 
@@ -113,7 +116,7 @@
             color: #000; /* 검은색 글씨 */
             gap: 5px;
             /*background-color: rgba(255, 255, 255); !* 흰색 배경 + 50% 투명도 *!*/
-            background: linear-gradient(135deg, #93c5fd, #c4b5fd);
+            background: linear-gradient(135deg, #495057, #c4b5fd);
             border-radius: 10px;
             border: 2px solid gray;
             padding: 1px 6px; /* 위아래 5px, 좌우 10px 여백 추가 */
@@ -151,7 +154,7 @@
             justify-content: center;
             /*background-color: #4caf50; !* 초록색 배경 *!*/
             /*background-color: #7c3aed;*/
-            background: linear-gradient(135deg, #93c5fd, #7c3aed);
+            background: linear-gradient(135deg, #495057, #7c3aed);
             color: white; /* 흰색 글씨 */
             font-size: 1.5rem; /* 글씨 크기 */
             font-weight: bold; /* 굵은 글씨 */
@@ -174,10 +177,8 @@
             width: 800px;
             height: 600px;
             background-image: url('<c:url value="/img/building/image.png"/>'); /* 건물 배경 이미지 */
-            /*background-size: cover;*/
             background-size: contain; /* 비율 유지하면서 div에 맞추기 */
             background-repeat: no-repeat; /* 반복 제거 */
-            /*background-position: center;*/
         }
 
         /* 층 이미지 스타일 */
@@ -207,7 +208,7 @@
             width: 392px;
             height: 159px;
             background-image: url('<c:url value="/img/building/left5f3.png"/>');
-            filter: invert(31%) sepia(97%) saturate(375%) hue-rotate(82deg) brightness(94%) contrast(92%);
+            filter: invert(38%) sepia(81%) saturate(1362%) hue-rotate(332deg) brightness(110%) contrast(96%);
         }
 
         .floor-right5f {
@@ -216,7 +217,7 @@
             width: 209px;
             height: 102px;
             background-image: url('<c:url value="/img/building/right5f.png"/>');
-            filter: invert(31%) sepia(97%) saturate(375%) hue-rotate(82deg) brightness(94%) contrast(92%);
+            filter:invert(38%) sepia(81%) saturate(1362%) hue-rotate(332deg) brightness(110%) contrast(96%);
         }
 
         .floor-left4f {
@@ -292,9 +293,6 @@
             filter: invert(31%) sepia(97%) saturate(375%) hue-rotate(82deg) brightness(94%) contrast(92%);
         }
 
-        .datatable{
-
-        }
     </style>
 
 
@@ -305,7 +303,7 @@
             display: grid;
             grid-template-columns: minmax(800px, 1.5fr) minmax(400px, 1fr);
             gap: 2rem;
-            background: white;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
             padding: 2rem;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -318,7 +316,7 @@
             display: grid;
             grid-template-columns: 400px 1fr;
             gap: 2rem;
-            background: white;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
             padding: 2rem;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -328,12 +326,14 @@
             width: 100%;
             height: 300px;
             max-height: 300px;
+            border-radius: 12px;
         }
 
         #monthContainer {
             /*width: 100%;*/
             width:100%;
             height: 300px;
+            border-radius: 12px;
         }
 
         /* 데이터 테이블 숨김 처리 */
@@ -375,6 +375,10 @@
             init: function () {
                 this.initClickEvents(); // 클릭 이벤트 초기화
                 this.startRealTimeMonitoring(); // JSON 데이터 주기적 갱신 시작
+
+                this.getTotalChart();
+                setInterval(this.fetchBuildingStatsAndUpdateChart, 3000);
+                this.getMonthChart();
             },
 
             startRealTimeMonitoring: function () {
@@ -457,8 +461,8 @@
                     \${floorData.floor}
                 </div>
                 <div class="floor-details">
-                    <h3 style="margin: 0; color: #000;">\${floorData.floor}층</h3>
-                    <div id="total-power" style="margin-top: 5px; font-weight: bold; color: #000;">
+                    <h3 style="margin: 0; color: #FFFFFF;">\${floorData.floor}층</h3>
+                    <div id="total-power" style="margin-top: 5px; font-weight: bold; color: #FFFFFF;">
                         총 전력: \${floorData.totalPower}kW
                     </div>
                 </div>
@@ -501,183 +505,305 @@
                 } else {
                     return "invert(31%) sepia(97%) saturate(375%) hue-rotate(82deg) brightness(94%) contrast(92%)"; // 초록색
                 }
+            },
+            getTotalChart: function(){
+                Highcharts.theme = {
+                    colors: ['#3B82F6'],
+                    chart: {
+                        backgroundColor: '#1F2937',
+                        style: {
+                            fontFamily: '"Noto Sans KR", sans-serif'
+                        }
+                    },
+                    title: {
+                        style: {
+                            color: '#ffffff'
+                        }
+                    },
+                    xAxis: {
+                        gridLineColor: '#374151',
+                        labels: {
+                            style: {
+                                color: '#9CA3AF'
+                            }
+                        },
+                        lineColor: '#4B5563'
+                    },
+                    yAxis: {
+                        gridLineColor: '#374151',
+                        labels: {
+                            style: {
+                                color: '#9CA3AF'
+                            }
+                        },
+                        title: {
+                            style: {
+                                color: '#9CA3AF'
+                            }
+                        }
+                    },
+                    legend: {
+                        itemStyle: {
+                            color: '#9CA3AF'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#374151',
+                        style: {
+                            color: '#ffffff'
+                        }
+                    }
+                };
+
+                Highcharts.setOptions(Highcharts.theme);
+                // 건물 총 전체 사용량 차트
+                Highcharts.chart("totalContainer", {
+                    credits: {
+                        enabled: false
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    chart: {
+                        backgroundColor: '#1F2937',
+                        type: "gauge",
+                        plotBackgroundColor: null,
+                        plotBackgroundImage: null,
+                        plotBorderWidth: 0,
+                        plotShadow: false,
+                        height: "80%",
+                    },
+
+                    title: {
+                        style: {
+                            color: '#ffffff'
+                        },
+                        text: "건물 전력 실시간 사용량",
+                    },
+
+                    pane: {
+                        startAngle: -90,
+                        endAngle: 89.9,
+                        background: null,
+                        center: ["50%", "75%"],
+                        size: "110%",
+                    },
+
+                    // the value axis
+                    yAxis: {
+
+                        min: 0,
+                        max: 4000,
+                        tickPixelInterval: 72,
+                        tickPosition: "inside",
+                        tickColor: Highcharts.defaultOptions.chart.backgroundColor || "#FFFFFF",
+                        tickLength: 20,
+                        tickWidth: 2,
+                        minorTickInterval: null,
+                        labels: {
+                            distance: 20,
+                            style: {
+                                fontSize: "14px",
+                                color: '#9CA3AF'
+                            },
+                        },
+                        lineWidth: 0,
+                        plotBands: [
+                            {
+                                from: 0,
+                                to: 2600,
+                                color: "#55BF3B", // green
+                                thickness: 20,
+                                borderRadius: "50%",
+                            },
+                            {
+                                from: 3000,
+                                to: 4000,
+                                color: "#DF5353", // red
+                                thickness: 20,
+                                borderRadius: "50%",
+                            },
+                            {
+                                from: 2400,
+                                to: 3200,
+                                color: "#DDDF0D", // yellow
+                                thickness: 20,
+                            },
+                        ],
+
+                    },
+
+                    series: [
+                        {
+                            name: "전력량",
+                            data: [0],
+                            tooltip: {
+                                valueSuffix: " kW",
+                            },
+                            dataLabels: {
+                                format: "{y} kW",
+                                borderWidth: 0,
+                                color:
+                                    (Highcharts.defaultOptions.title &&
+                                        Highcharts.defaultOptions.title.style &&
+                                        Highcharts.defaultOptions.title.style.color) ||
+                                    "#333333",
+                                style: {
+                                    fontSize: "16px",
+                                },
+                            },
+                            dial: {
+                                radius: "80%",
+                                backgroundColor: "gray",
+                                baseWidth: 12,
+                                baseLength: "0%",
+                                rearLength: "0%",
+                            },
+                            pivot: {
+                                backgroundColor: "gray",
+                                radius: 6,
+                            },
+                        },
+                    ],
+                })
+            },
+            fetchBuildingStatsAndUpdateChart: function(){
+                $.ajax({
+                    url: "/getFloorStats",
+                    type: "GET",
+                    success: function (data) {
+                        const buildingData = data.buildingStats;
+                        const totalPower = data.buildingTotalPower; // 건물 전체 전력량
+
+                        // 차트 업데이트
+                        const chart = Highcharts.charts[0];
+                        if (chart && !chart.renderer.forExport) {
+                            const point = chart.series[0].points[0];
+                            point.update(totalPower); // 합계로 차트 업데이트
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("데이터 요청 실패:", error);
+                    },
+                });
+            },
+            getMonthChart: function(){
+                Highcharts.theme = {
+                    colors: ['#3B82F6'],
+                    chart: {
+                        backgroundColor: '#1F2937',
+                        style: {
+                            fontFamily: '"Noto Sans KR", sans-serif'
+                        }
+                    },
+                    title: {
+                        style: {
+                            color: '#ffffff'
+                        }
+                    },
+                    xAxis: {
+                        gridLineColor: '#374151',
+                        labels: {
+                            style: {
+                                color: '#9CA3AF',
+                                fontSize: '20px'  /* X축 레이블 글자 크기 */
+                            }
+                        },
+                        lineColor: '#4B5563'
+                    },
+                    yAxis: {
+                        gridLineColor: '#374151',
+                        labels: {
+                            style: {
+                                color: '#9CA3AF'
+                            }
+                        },
+                        title: {
+                            style: {
+                                color: '#9CA3AF'
+                            }
+                        }
+                    },
+                    legend: {
+                        itemStyle: {
+                            color: '#9CA3AF'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#374151',
+                        style: {
+                            color: '#ffffff'
+                        }
+                    }
+                };
+
+                Highcharts.setOptions(Highcharts.theme);
+                // 월별 에너지 사용량 차트
+                Highcharts.chart('monthContainer', {
+                    credits: {
+                        enabled: false
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    data: {
+                        table: 'datatable'
+                    },
+                    chart: {
+                        backgroundColor: '#1F2937',
+                        type: 'column'
+                    },
+                    title: {
+                        style: {
+                            color: '#ffffff',
+                        },
+                        text: '월별 에너지 사용량'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        gridLineColor: '#374151',
+                        labels: {
+                            style: {
+                                color: '#9CA3AF'
+                            }
+                        },
+                        lineColor: '#4B5563'
+                    },
+                    yAxis: {
+                        gridLineColor: '#374151',
+                        labels: {
+                            style: {
+                                color: '#9CA3AF'
+                            }
+                        },
+                        title: {
+                            style: {
+                                color: '#9CA3AF'
+                            }
+                        },
+                        allowDecimals: false,
+                        title: {
+                            text: '에너지사용량'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '2023년',
+                            color: '#ced4da' // 2023년 데이터 색상 (연한 회색)
+                        },
+                        {
+                            name: '2024년',
+                            color: '#ff7f0e' // 2024년 데이터 색상 (주황색)
+                        }
+                    ]
+                });
             }
         };
 
-        function fetchBuildingStatsAndUpdateChart() {
-            $.ajax({
-                url: "/getFloorStats",
-                type: "GET",
-                success: function (data) {
-                    const buildingData = data.buildingStats;
-                    const totalPower = data.buildingTotalPower; // 건물 전체 전력량
-
-                    // 차트 업데이트
-                    const chart = Highcharts.charts[0];
-                    if (chart && !chart.renderer.forExport) {
-                        const point = chart.series[0].points[0];
-                        point.update(totalPower); // 합계로 차트 업데이트
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("데이터 요청 실패:", error);
-                },
-            });
-        };
 
         // 페이지가 로드되었을 때 초기화
         $(function () {
             buildingEnergy.init();
-
-
-            // 건물 총 전체 사용량 차트
-            Highcharts.chart("totalContainer", {
-                credits: {
-                    enabled: false
-                },
-                exporting: {
-                    enabled: false
-                },
-                chart: {
-                    type: "gauge",
-                    plotBackgroundColor: null,
-                    plotBackgroundImage: null,
-                    plotBorderWidth: 0,
-                    plotShadow: false,
-                    height: "80%",
-                },
-
-                title: {
-                    text: "건물 전력 실시간 사용량",
-                },
-
-                pane: {
-                    startAngle: -90,
-                    endAngle: 89.9,
-                    background: null,
-                    center: ["50%", "75%"],
-                    size: "110%",
-                },
-
-                // the value axis
-                yAxis: {
-                    min: 0,
-                    max: 4000,
-                    tickPixelInterval: 72,
-                    tickPosition: "inside",
-                    tickColor: Highcharts.defaultOptions.chart.backgroundColor || "#FFFFFF",
-                    tickLength: 20,
-                    tickWidth: 2,
-                    minorTickInterval: null,
-                    labels: {
-                        distance: 20,
-                        style: {
-                            fontSize: "14px",
-                        },
-                    },
-                    lineWidth: 0,
-                    plotBands: [
-                        {
-                            from: 0,
-                            to: 2600,
-                            color: "#55BF3B", // green
-                            thickness: 20,
-                            borderRadius: "50%",
-                        },
-                        {
-                            from: 3000,
-                            to: 4000,
-                            color: "#DF5353", // red
-                            thickness: 20,
-                            borderRadius: "50%",
-                        },
-                        {
-                            from: 2400,
-                            to: 3200,
-                            color: "#DDDF0D", // yellow
-                            thickness: 20,
-                        },
-                    ],
-
-                },
-
-                series: [
-                    {
-                        name: "전력량",
-                        data: [0],
-                        tooltip: {
-                            valueSuffix: " kW",
-                        },
-                        dataLabels: {
-                            format: "{y} kW",
-                            borderWidth: 0,
-                            color:
-                                (Highcharts.defaultOptions.title &&
-                                    Highcharts.defaultOptions.title.style &&
-                                    Highcharts.defaultOptions.title.style.color) ||
-                                "#333333",
-                            style: {
-                                fontSize: "16px",
-                            },
-                        },
-                        dial: {
-                            radius: "80%",
-                            backgroundColor: "gray",
-                            baseWidth: 12,
-                            baseLength: "0%",
-                            rearLength: "0%",
-                        },
-                        pivot: {
-                            backgroundColor: "gray",
-                            radius: 6,
-                        },
-                    },
-                ],
-            })
-            // 데이터 주기적 갱신
-            setInterval(fetchBuildingStatsAndUpdateChart, 3000);
-
-            // 월별 에너지 사용량 차트
-            Highcharts.chart('monthContainer', {
-                credits: {
-                    enabled: false
-                },
-                exporting: {
-                    enabled: false
-                },
-                data: {
-                    table: 'datatable'
-                },
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: '월별 에너지 사용량'
-                },
-                subtitle: {
-                    text:
-                        '<a href="https://www.ssb.no/en/statbank/table/04231" target="_blank"></a>'
-                },
-                xAxis: {
-                    type: 'category'
-                },
-                yAxis: {
-                    allowDecimals: false,
-                    title: {
-                        text: '에너지사용량'
-                    }
-                },
-                series: [
-                    {
-                        name: '2023년',
-                        color: '#ced4da' // 2023년 데이터 색상 (연한 회색)
-                    },
-                    {
-                        name: '2024년',
-                        color: '#ff7f0e' // 2024년 데이터 색상 (주황색)
-                    }
-                ]
-            });
 
         });
     </script>
@@ -685,21 +811,22 @@
 <div class="content-wrapper">
     <h1>에너지 관리</h1>
     <div class="main-container">
-        <div class="building-container">
+        <div class="building-panel">
+            <div class="building-container">
 
-            <!-- 층을 나타내는 div -->
-            <div class="floor floor-left5f" data-floor="5F"></div>
-            <div class="floor floor-right5f" data-floor="5F"></div>
-            <div class="floor floor-left4f" data-floor="4F"></div>
-            <div class="floor floor-right4f" data-floor="4F"></div>
-            <div class="floor floor-left3f" data-floor="3F"></div>
-            <div class="floor floor-right3f" data-floor="3F"></div>
-            <div class="floor floor-left2f" data-floor="2F"></div>
-            <div class="floor floor-right2f" data-floor="2F"></div>
-            <div class="floor floor-left1f" data-floor="1F"></div>
-            <div class="floor floor-right1f" data-floor="1F"></div>
+                <!-- 층을 나타내는 div -->
+                <div class="floor floor-left5f" data-floor="5F"></div>
+                <div class="floor floor-right5f" data-floor="5F"></div>
+                <div class="floor floor-left4f" data-floor="4F"></div>
+                <div class="floor floor-right4f" data-floor="4F"></div>
+                <div class="floor floor-left3f" data-floor="3F"></div>
+                <div class="floor floor-right3f" data-floor="3F"></div>
+                <div class="floor floor-left2f" data-floor="2F"></div>
+                <div class="floor floor-right2f" data-floor="2F"></div>
+                <div class="floor floor-left1f" data-floor="1F"></div>
+                <div class="floor floor-right1f" data-floor="1F"></div>
+            </div>
         </div>
-
 
         <!-- 오른쪽 정보 패널 -->
         <div class="info-panel">
@@ -708,7 +835,7 @@
             <div class="info-header">
                 <%--      <div class="card-header">--%>
                 <div class="info-title">
-                    <h2>층별 정보</h2>
+                    <h2 style="color: white">층별 정보</h2>
                     <div class="subtitle" style="color: white">실시간 에너지 사용 현황</div>
                 </div>
                 <div class="status-indicators">
@@ -726,8 +853,9 @@
                     </div>
                 </div>
             </div>
+<%--                linear-gradient(135deg, #495057, #c4b5fd);--%>
             <!-- 데이터 표시 영역 -->
-            <div class="card-body" style="background: linear-gradient(135deg, #93c5fd, #c4b5fd); border-radius: 8px;">
+            <div class="card-body" style="background:linear-gradient(135deg, #495057, #c4b5fd); border-radius: 8px;">
                 <div id="floor-data" class="floor-data-container">
                     <h2>층을 클릭하면 정보가 표시됩니다.</h2>
                     <div id="total-power" style="margin-top: 10px; font-weight: bold; color: #000;">총 전력: -- kW</div>
