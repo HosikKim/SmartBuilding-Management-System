@@ -46,7 +46,7 @@ logging:
 # 위까지는 spring꺼 아래부터는 팀, 개인의 변수들
 app:
   url:
-    server-url: http://210.119.34.211:82
+    server-url: http://210.119.34.210:81
 
     ocr-url: "https://ob9suhs003.apigw.ntruss.com/custom/v1/36276/89a574cffaaaf2f84722b0879bcd673f2d437f561807daa4c0b25d561ebb47d0/general"
   dir:
@@ -65,7 +65,8 @@ app:
     algo: PBEWithMD5AndDES    # ENC변경 필 (보안사유)
     skey: mykey
     ocr-key: UVdOdGpGV2NwemhiU1RCeXFwaG9CZEJ2SW53SWVkcEc=
-
+    papago-id : 8umjbm0xti
+    papago-secret : seSEeQEtOObQ1GXXmW2TG7cGfTztpoH9mg7DX5B3
   kakao:
     client-id: "18bb7ea0e94b0d6aa04bf15517db1397"  # 카카오 개발자 콘솔에서 얻은 REST API 키
     redirect-uri: "http://127.0.0.1/oauth/kakao/callback"  # Redirect URI 설정
