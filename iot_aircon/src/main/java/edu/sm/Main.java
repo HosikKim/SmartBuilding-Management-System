@@ -46,6 +46,11 @@ public class Main {
                 // 에어컨인지 조명인지에 따라 값 범위 설정
                 if (iotNames[j].contains("에어컨")) {
                     value = 5.00f + r.nextFloat() * 5.00f; // 5 ~ 10 사이의 값
+//                    if(i==3 && j == 0) {
+//                        value = 55f;
+//                    }else{
+//                        value = 5.00f + r.nextFloat() * 5.00f; // 5 ~ 10 사이의 값
+//                    }
                 } else if (iotNames[j].contains("조명")) {
                     value = 1.00f + r.nextFloat() * 1.00f; // 1 ~ 2 사이의 값
                 } else {

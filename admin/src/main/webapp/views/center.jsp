@@ -42,7 +42,7 @@
         bottom: 80px;
         right: 20px;
         width: 400px;
-        height: 500px;
+        height: 600px;
         background-color: white;
         border: 1px solid #ddd;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

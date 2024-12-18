@@ -16,7 +16,53 @@
     <title>Title</title>
 </head>
 
+<style>
+    /* 버튼 클릭 모션 스타일 */
+    .nav-link {
+        position: relative;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        overflow: hidden;
+    }
 
+    .nav-link:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        transform: translateX(5px);
+    }
+
+    .nav-link:active {
+        transform: scale(0.95);
+    }
+
+    /* 아이콘 모션 */
+    .icon {
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover .icon {
+        transform: scale(1.1);
+    }
+
+    /* 텍스트 호버 효과 */
+    .nav-link-text {
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover .nav-link-text {
+        font-weight: 600;
+        color: #344767;
+    }
+
+    /* 활성화된 메뉴 스타일 */
+    .nav-link.active {
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-link.active:hover {
+        transform: translateX(3px);
+    }
+</style>
 <script>
 </script>
 

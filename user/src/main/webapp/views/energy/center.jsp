@@ -510,6 +510,7 @@
         init: function () {
             console.log("energy.init 호출됨"); // init 함수 호출 확인
             this.fetchTotalPower();
+            this.fetchIotStatus();
             setInterval(this.fetchIotStatus, 3000);
             setInterval(this.fetchTotalPower, 3000);
 
