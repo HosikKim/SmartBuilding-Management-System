@@ -5,9 +5,9 @@
 --%>
 
 <%-- 부트스트랩 아이콘 링크 추가 --%>
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
-
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+<%--구글 이모티콘--%>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -17,8 +17,52 @@
 </head>
 
 <style>
-</style>
+    /* 버튼 클릭 모션 스타일 */
+    .nav-link {
+        position: relative;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        overflow: hidden;
+    }
 
+    .nav-link:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        transform: translateX(5px);
+    }
+
+    .nav-link:active {
+        transform: scale(0.95);
+    }
+
+    /* 아이콘 모션 */
+    .icon {
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover .icon {
+        transform: scale(1.1);
+    }
+
+    /* 텍스트 호버 효과 */
+    .nav-link-text {
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover .nav-link-text {
+        font-weight: 600;
+        color: #344767;
+    }
+
+    /* 활성화된 메뉴 스타일 */
+    .nav-link.active {
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-link.active:hover {
+        transform: translateX(3px);
+    }
+</style>
 <script>
 </script>
 
@@ -39,15 +83,15 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" href="../pages/dashboard.html">
+                <a class="nav-link active" href="<c:url value="/"/>">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                        <i class="bi bi-house text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Dashboard</span>
+                    <span class="nav-link-text ms-1">대시보드</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="../pages/tables.html">
+                <a class="nav-link " href="<c:url value="/energy"/>">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="bi bi-lightbulb text-dark text-sm opacity-10"></i> <!-- 에너지 관리 아이콘 (전구 모양) -->
                     </div>
@@ -63,11 +107,20 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="../pages/virtual-reality.html">
+                <a class="nav-link " href="<c:url value="/notice"/> ">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="bi bi-asterisk text-dark text-sm opacity-10"></i> <!-- 공지사항 아이콘 -->
                     </div>
                     <span class="nav-link-text ms-1">공지사항</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " href="<c:url value="/energy/info"/> ">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-file-earmark-bar-graph-fill text-dark text-sm opacity-10"></i> <!-- 공지사항 아이콘 -->
+                    </div>
+                    <span class="nav-link-text ms-1">분석</span>
                 </a>
             </li>
 
@@ -80,16 +133,15 @@
                     <li class="nav-item">
                         <a class="nav-link " href="<c:url value="/login"/> ">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="bi bi-box-arrow-left text-dark opacity-10"
-                                   style="font-size: 1.2em; text-shadow: 1px 0 currentColor, -1px 0 currentColor, 0 1px currentColor, 0 -1px currentColor;"></i>
+                           <span class="material-symbols-outlined">login</span>
                             </div>
                             <span class="nav-link-text ms-1">로그인</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="../pages/profile.html">
+                        <a class="nav-link " href="<c:url value="/register"/>">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                               <span class="material-symbols-outlined">person_add</span>
                             </div>
                             <span class="nav-link-text ms-1">회원가입</span>
                         </a>
@@ -100,9 +152,18 @@
                     <li class="nav-item">
                         <a class="nav-link " href="<c:url value='/logoutimpl'/>">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                            <span class="material-symbols-outlined">logout</span>
                             </div>
                             <span class="nav-link-text ms-1">로그아웃</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="<c:url value='/mypage'/>">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <span class="material-symbols-outlined">badge</span>
+                            </div>
+                            <span class="nav-link-text ms-1">마이페이지</span>
                         </a>
                     </li>
                 </c:otherwise>

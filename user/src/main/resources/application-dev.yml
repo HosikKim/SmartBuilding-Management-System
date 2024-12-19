@@ -1,10 +1,16 @@
-# tomcat server setting
+
+  # tomcat server setting
 server:
   port: 80
   servlet:
     encoding:
       charset: UTF-8
       force: true
+#  ssl:
+#    enabled: true
+#    key-store: classpath:keystore.p12  # 인증서 파일 경로
+#    key-store-password: "ENC(S4K+PMUeBKk8G95n3ND15w==)"  # 인증서 생성 시 사용한 비밀번호
+#    key-store-type: PKCS12  # 인증서 유형
 
 # Spring boot environment settings
 spring:
@@ -20,7 +26,7 @@ spring:
     #    driver-class-name: com.mysql.cj.jdbc.Driver
     #    url: jdbc:mysql://127.0.0.1:3306/immersive?characterEncoding=utf8
     username: smuser
-    password: 111111
+    password: ENC(2p1Tnb3d47V9r7Kx+SsBNA==)
 
 # Mybatis settings
 mybatis:
@@ -33,24 +39,6 @@ mybatis:
   # resources 아래 mapper 아래 xml로 sql문을 작성할거임
 
 
-
-
-#  db세팅
-#  datasource:
-#    #driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-#    #url: jdbc:log4jdbc:mysql://127.0.0.1:3306/shopdb?characterEncoding=utf8
-#    #driver-class-name: com.mysql.cj.jdbc.Driver
-#    #url: jdbc:mysql://127.0.0.1:3306/shopdb?characterEncoding=utf8
-#    url: jdbc:mysql://127.0.0.1:3306/shopdb?serverTimezone=Asia/Seoul
-#    username: shop
-#    password: 1234
-
-#mybatis:
-#  type-aliases-package: com.example.web01.app.dto
-#  mapper-locations: classpath:/mapper/*.xml
-#  configuration:
-#    map-underscore-to-camel-case: true
-
 # log settings
 logging:
   level:
@@ -60,24 +48,34 @@ logging:
 # 위까지는 spring꺼 아래부터는 팀, 개인의 변수들
 app:
   url:
-#    server-url: http://172.16.21.91:81
+    server-url: http://210.119.34.211:81
+#    server-url: http://210.119.34.211:82
+    chatbot: https://3vd0tljt1i.apigw.ntruss.com/custom/v1/16306/2ff9d4e7ae8c78eccb95f0cc246199873c652301b5ef2390e613074339289a77
   dir:
     imgdir: file:///c:/springsm/imgs/    # 위치가 springsm 하위가 아니어도 상관없음
-    uploaddir: c:/springsm/imgs/         # 파일을 저장할때는 아펭 file:/// 빠짐
+    uploaddir: c:/springsm/imgs/         # 파일을 저장할때는 앞에 file:/// 빠짐
     logdir: file:///c:/springsm/logs/
     readlogdir: c:/springsm/logs/
     uploadimgdir: c:/springsm/imgs/
 
   key:
     wkey: ENC(4PAWoDD5oYX4vQinseKwW+ga3MPEBm3s68OnAiWR1mfpdUbARblM1k4ued+xkw4ok4QfuDFSPfP2qc3IpN1np9T5cKv/PGilw2hR/lV33dRNMcwwheKLtejQwPXKTiXM+t/0opitWOGchB5p9ZtsZNHXx8/qT0pn)
-    # 기상청 개인 키값|
-    okey: ENC(W0YAGg22Zx2P8I9+K/N+U+FoiZ0TWK6h/FMnLYA2Wb4ZEUkGTCR14hcisaIYaG9g)
+    # 기상청 키값
+    okey: ENC(ySI3QNIN8YgnVXYynOuLSBa8XRMyzCSBbNSU8fDFU1XtlUOJ26zjMo+7OAdc8kvI)
     # open weather 키값
-    algo: PBEWithMD5AndDES    # ENC변경 필 (보안사유)
-    skey: mykey
+    algo: ENC(T0Lp0G/bv/liR1O1x58EMCJHZmtcF3Q0gd4hnb5l8xk=)    # ENC변경 필 (보안사유)
+    skey: ENC(jA//i3Jd+yPW06IaLrErxg==)
+    # ncp 챗봇 키값
+    chatbot: ENC(7F+cyRU8TOeTdrJn3+M7UyQeZ83r+RE4S2kClkTjUPHLbSQmcgriFf6XkRekYtM4BG6GPFS2ZXA=)
 
   kakao:
-    client-id: "18bb7ea0e94b0d6aa04bf15517db1397"  # 카카오 개발자 콘솔에서 얻은 REST API 키
+    client-id: "ENC(bMOyx7cxOoGkeF/ZUSYNd+5f8VtJVU07HjGilSFQWgO0a+ZKQNsMTqDAnKOmiL3J)"  # 카카오 개발자 콘솔에서 얻은 REST API 키
     redirect-uri: "http://127.0.0.1/oauth/kakao/callback"  # Redirect URI 설정
     token-uri: "https://kauth.kakao.com/oauth/token"  # 카카오에서 AccessToken 요청용 URI
     user-info-uri: "https://kapi.kakao.com/v2/user/me"  # 사용자 정보 요청용 URI
+
+  portone:
+    api-key: "ENC(/x1CfZ4jHoHPv8jyjvaizPmD3eeY5Hv/uQzDxdtdxOo=)"
+    api-secret: "ENC(DC9vtSv+qsdn6UQ8bIH9n3RVkTEGlqATtLs88rTVtc3y7Pf82hLwYzFRv9GrjQOa6lj7bZPhSnNeMb963OPSVOOUA5cOPaKe+FnSw54ZgkDDq4aF65o2McKp88nz95Qd)"
+    channel-key: "ENC(tkaF2bULpp9ck/onNsT3CbsF77zUeRetoXtaJTFsdkxdMMbd4hjC7i/ncTyXZgDJ/cexIpUS0GgxThSaChktgw==)"
+

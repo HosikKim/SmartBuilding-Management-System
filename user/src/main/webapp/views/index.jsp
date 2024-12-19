@@ -1,44 +1,54 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html lang="en">
-
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
         건어물
     </title>
-    <!-- Fonts and icons -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
-    <!-- Nucleo Icons -->
-    <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet"/>
-    <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet"/>
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+
     <!-- CSS Files -->
     <link id="pagestyle" href="<c:url value="/css/argon-dashboard.css?v=2.1.0"/> " rel="stylesheet"/>
 
     <%-- 카카오맵 api --%>
-    <script type="text/javascript"
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0601f2c8782b31d6ed7ddf38b80dfbe8"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0601f2c8782b31d6ed7ddf38b80dfbe8"></script>
 
     <%-- 웹소켓 라이브러리    --%>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
+
     <%--  highcharts Library  --%>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
 
+
+
+<%-- jquary --%>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
+<script>
+    <%--document.addEventListener("DOMContentLoaded", function () {--%>
+    <%--    var loginid = "${sessionScope.loginid}";--%>
+
+    <%--    if (!loginid || loginid === "null") {--%>
+    <%--        alert("로그인이 필요한 서비스 입니다.");--%>
+    <%--        window.location.href = "/login";--%>
+    <%--    }--%>
+    <%--});--%>
+</script>
+
 
 <body class="g-sidenav-show bg-gray-100">
 <%--<div class="min-height-300 bg-dark position-absolute w-100" style="background-image: url('<c:url value="/img/bruce-mars.jpg"/>')"></div>--%>
@@ -51,10 +61,7 @@
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
-                </ol>
-                <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
+                    </ol>
             </nav>
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                 <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -64,7 +71,7 @@
                     </div>
                 </div>
                 <ul class="navbar-nav justify-content-end">
-                    <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                    <li class="nav-item d-xl-none ps-3 d-flex align-items-center" style="margin-right: 15px">
                         <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
                             <div class="sidenav-toggler-inner">
                                 <i class="sidenav-toggler-line bg-white"></i>
@@ -86,7 +93,7 @@
                             <c:otherwise>
                                 <!-- 로그인된 경우 사용자 ID 및 Logout 표시 -->
                                 <span class="nav-link text-white font-weight-bold px-0">
-                                        ${sessionScope.loginid.userId}
+                                    <a href="<c:url value="/mypage"/>";  style="color: white">${sessionScope.loginid.userId}</a>
                                 </span>
                                 <a class="nav-link text-white font-weight-bold px-0" href="<c:url value='/logoutimpl'/>" style="margin-left: 15px">
                                     Logout
