@@ -578,7 +578,7 @@
                 url: "<c:url value='/iot/latestData2'/>",
                 type: "GET",
                 success: function (data) {
-                    console.log(data);
+                    // console.log(data);
                     $("#totalPower").text(data.totalPower);
                     $("#avgTemp").text(data.avgData.avgTemperature);
                     $("#avgHumidity").text(data.avgData.avgHumidity);

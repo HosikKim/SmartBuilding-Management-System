@@ -40,6 +40,7 @@ public class IotRestController {
         try {
             log.info(data);
 
+
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(data);
 
@@ -201,10 +202,10 @@ public class IotRestController {
     public ResponseEntity<Map<String, Object>> getChartData() {
         try {
             Map<String, Object> chartData = iotHistoryService.chartdata();
-            log.info("chartdata : " + chartData);
+//            log.info("chartdata : " + chartData);
             return ResponseEntity.ok(chartData);
         } catch (Exception e) {
-            log.error("Error fetching chart data", e);
+//            log.error("Error fetching chart data", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
@@ -216,7 +217,7 @@ public class IotRestController {
             List<Map<String, Object>> monthlyElectricityUsage = iotHistoryService.monthelec();
             return ResponseEntity.ok(monthlyElectricityUsage); // JSON 반환
         } catch (Exception e) {
-            log.error("Error fetching monthly electricity usage", e);
+//            log.error("Error fetching monthly electricity usage", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
